@@ -8,13 +8,9 @@ Create table users(
 );
 
 alter table users
-add column isadmin int default 1 check(isadmin in(0,1));
+add column isadmin int ;
 
-alter table users
-alter column isadmin drop default;
 
-ALTER TABLE users
-drop constraint  users_isadmin_check;
 
 alter table users
 alter column isadmin type bool   using isadmin::Boolean;
@@ -35,4 +31,14 @@ create  table tasks(
 drop  table tasks;
 
 drop database lab1;
+
+
+
+
+
+
+
+
+
+
 
