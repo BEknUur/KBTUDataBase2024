@@ -1,52 +1,62 @@
-create  table countries(
-    country_id serial primary key ,
-    country_name varchar(255),
+--1
+create database lab2;
+--2
+create table countries(
+    country_id serial primary key,
+    country_name varchar,
     region_id integer,
     population integer
 );
-insert into countries(country_name, region_id, population) values('Germany',10,13200000);
+Select * from countries;
+--3
+insert into countries(country_name, region_id, population) values('Germany',1,500000);
+--4
+insert into countries(country_id,country_name)values(2,'Korea');
+--5
+insert into countries(country_name,  population) values('Spain',1234000);
 
-select * from countries;
-insert into countries(country_id,country_name)values(2,'France');
-
-insert into countries(country_name, region_id, population) values('Spain',NULL,1450000);
-
-
+--6
 insert into countries(country_name, region_id, population)
-VALUES
-('Russia',14,16700000),
-('Argentina',15,565000),
-('Brazil',16,40924424);
+values
+('Russia',2,570000),
+('Kyrgyzstan',3,45000),
+('England',4,34000);
+--7
+alter table countries
+alter column country_name set default 'Kazakhstan';
+--8
+insert into countries(country_name, region_id, population) values(default,5,200000);
 
-INSERT INTO countries (country_name, region_id, population)
-VALUES (default,default,default);
+--9
+insert into countries(country_name, region_id, population) values(default,default,default);
 
-CREATE TABLE countries_new as table countries;
+--10
+CREATE  table countries_new  (like countries including  all);
 
-select  * from countries_new;
+--11
+select * from countries_new;
+insert into countries_new
+select * from countries;
 
+--12
 update countries
 set region_id=1
-where region_id is null;
+where region_id isnull;
 
-select * from countries;
-
+--13
 select country_name,
-population*1.1 as "New population"
+       population*1.1 as "New population"
 from countries;
 
-delete  from countries
+--14
+delete from countries
 where population<100000;
 
+--15
+delete from countries_new
+where country_id in (Select country_id From countries)
+returning *;
 
-DELETE FROM countries_new
-WHERE country_id IN (SELECT country_id FROM countries)
-RETURNING *;
-
-select * from countries_new
-
-
-DELETE FROM countries;
-
-
--- Some issues when i paste as default value for Kazakhstan
+--16
+delete  from countries_new
+returning  *;
