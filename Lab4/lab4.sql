@@ -58,9 +58,9 @@ group by warehouse;
 
 --8
 select warehouse,COUNT(*) as warehouse_count
-from boxes
-where warehouse>2
-group by warehouse;
+    from boxes
+    group by warehouse
+Having count(*)>2;
 
 
 --9
