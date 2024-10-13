@@ -1,22 +1,19 @@
-drop database if exists lab5;
 create database lab5;
 
-drop table if exists orders cascade;
-drop table if exists customers cascade;
-
 create table customers(
-    customer_id integer primary key,
-    cust_name text,
-    city text,
+    customer_id integer primary key ,
+    cust_name varchar(255),
+    city varchar(255),
     grade integer,
-    salesman_id integer
+    salesmen_id integer
+
 );
 
-create table orders(
-    ord_no integer primary key,
+create table  orders(
+    ord_no integer primary key ,
     purch_amt real,
     ord_date date,
-    customer_id integer references customers(customer_id),
+    customer_id integer references  customers(customer_id),
     salesmen_id integer
 );
 
@@ -38,22 +35,40 @@ insert into orders values
 (70005, 2400.6, '2012-07-27', 3007, 5001),
 (70008, 5760, '2012-09-10', 3002, 5001);
 
+
+select* from customers;
+select * from orders;
+
+--3
 select sum(purch_amt) from orders;
 
+--4
 select avg(purch_amt) from orders;
 
-select count(cust_name) from customers;
+--5
+select count(cust_name )from customers;
 
+--6
 select min(purch_amt) from orders;
 
+--7
 select * from customers where cust_name like '%b';
 
+
+--8
 select * from orders where customer_id in (select customer_id from customers where city = 'New York');
 
-select * from orders where customer_id in (select customer_id from customers) and purch_amt > 10;
+--9
+select * from orders where customer_id in (select customer_id from customers)and purch_amt>10;
 
+
+--10
+select grade from customers;
 select sum(grade) from customers;
 
-select * from customers where cust_name is not null;
+--11
+select cust_name from customers
+where cust_name is not null;
 
-select max(grade) from customers;
+--12
+select max(grade)from customers;
