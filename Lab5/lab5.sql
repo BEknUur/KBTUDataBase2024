@@ -13,7 +13,8 @@ create table  orders(
     ord_no integer primary key ,
     purch_amt real,
     ord_date date,
-    customer_id integer references  customers(customer_id),
+    customer_id int,
+   FOREIGN KEY (customer_id)  references  customers(customer_id),
     salesmen_id integer
 );
 
@@ -35,10 +36,6 @@ insert into orders values
 (70005, 2400.6, '2012-07-27', 3007, 5001),
 (70008, 5760, '2012-09-10', 3002, 5001);
 
-
-select* from customers;
-select * from orders;
-
 --3
 select sum(purch_amt) from orders;
 
@@ -46,29 +43,36 @@ select sum(purch_amt) from orders;
 select avg(purch_amt) from orders;
 
 --5
-select count(cust_name )from customers;
+select count(cust_name) from customers;
 
 --6
 select min(purch_amt) from orders;
 
 --7
-select * from customers where cust_name like '%b';
-
+select (customers.cust_name) from customers
+where cust_name like '%b';
 
 --8
-select * from orders where customer_id in (select customer_id from customers where city = 'New York');
+select * from orders where customer_id in(
+select customer_id
+    from customers
+    where city='New York'
+                           );
+
 
 --9
-select * from orders where customer_id in (select customer_id from customers)and purch_amt>10;
-
+select * from orders where customer_id in(
+    select customer_id
+    from orders
+    where purch_amt>10
+    ) ;
 
 --10
-select grade from customers;
 select sum(grade) from customers;
 
 --11
 select cust_name from customers
-where cust_name is not null;
+where cust_name is not Null;
 
 --12
-select max(grade)from customers;
+select max(grade) from customers;
