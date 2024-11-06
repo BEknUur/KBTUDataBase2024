@@ -52,33 +52,27 @@ values
 
 
 --3
-/*
-select * from employees*;
-select * from departments*;
-select *from locations*;
-
- */
 select e.first_name,e.last_name,e.department_id,d.department_name
 from employees e
 join departments d on e.department_id = d.department_id;
 
 
+
 --4
-select  e.first_name,e.last_name,e.department_id,d.department_name
-from employees e
-join departments d on d.department_id = e.department_id
-where  e.department_id in(80,40);
+    select e.first_name,e.last_name,e.department_id,d.department_name
+    from employees e
+    join departments d on e.department_id=d.department_id
+                         where  e.department_id=80 or e.department_id=40;
 
 --5
-select  e.first_name,e.last_name,l.state_province
-    from employees e
-join departments d on d.department_id = e.department_id
+select first_name,last_name,department_name,city,state_province
+from employees e
+join departments d on e.department_id = d.department_id
 join locations l on d.location_id = l.location_id;
 
 --6
-select  d.department_name,e.first_name ,e.last_name
-    from departments d
-left join employees e on d.department_id = e.department_id;
+    select  * from departments d
+    left join employees e on d.department_id = e.department_id;
 
 --7
 select e.first_name,e.last_name,d2.department_id,d2.department_name
