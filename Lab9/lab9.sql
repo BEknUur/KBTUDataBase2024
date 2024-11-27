@@ -150,37 +150,40 @@ select * from update_salary('Beknur');
 select * from employees;
 
 
-
 --7
-create or replace  function   complex_calculation(input_number integer,input_string varchar)
-returns varchar as
-    $$
-    declare
-    result_string varchar;
-    result_number integer;
-    final_result varchar;
-        begin
-        <<main>>
-        begin
-            <<work_with_string>>
-            declare
-                reversed_string varchar;
-                begin
-                reversed_string:=reverse(input_string);
-                result_string:='Reversed_string '|| reversed_string;
+CREATE OR REPLACE PROCEDURE complex_calculation(input_number INTEGER, input_string VARCHAR)
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    result_string VARCHAR;
+    result_number INTEGER;
+    final_result VARCHAR;
+BEGIN
+    <<main>>
+    BEGIN
+        <<work_with_string>>
+        DECLARE
+            reversed_string VARCHAR;
+        BEGIN
+            reversed_string := REVERSE(input_string); -
+            result_string := 'Reversed_string: ' || reversed_string;
+        END work_with_string;
 
-            end work_with_string;
-            <<work_with_num>>
-            declare
-                square integer;
-                begin
-                square:=input_number*input_number;
-                result_number:=square;
-            end work_with_num;
-            final_result:=result_string || ' ;Squared number ' || result_number;
-        end main;
-        return final_result;
-    end;$$
-language  plpgsql;
+      
+        <<work_with_num>>
+        DECLARE
+            square INTEGER;
+        BEGIN
+            square := input_number * input_number; 
+            result_number := square;
+        END work_with_num;
 
-select * from complex_calculation(10,'Beknur');
+        
+        final_result := result_string || ' ; Squared number: ' || result_number;
+        RAISE NOTICE 'Final Result: %', final_result; 
+    END main;
+END;
+$$;
+
+
+CALL complex_calculation(10, 'Beknur');
